@@ -20,6 +20,11 @@ class Game:
         for i in range(num_to_gen):
             self.container[random.choice(range(4))][random.choice(range(4))] = 2
             
+    def score(self):
+        a = []
+        for row in range(4):
+            a.append(sum(self.container[row]))
+        return sum(a)
     def disp(self):
         new_matrix = self.container
         print("_____________________", flush=True)
@@ -35,16 +40,17 @@ class Game:
                 print('|', end='')
             print('', flush=True)
             print("—————————————————————", flush=True)
+        print("score: {}".format(self.score()))
 
     def listenEvent(self):
         #return string input
-        string = input('next move:(in w,a,s,d)')
+        string = input('move:(w,a,s,d,q)')
         return string
 
     def getKeyDown(self, arr=''):
         """self.key = keydown. if is 'q' then self.quit = True"""
         while arr not in ['w', 'a', 's', 'd', 'q']:
-            arr = input('try again, in w,a,s,d:')
+            arr = input('try again:(w,a,s,d,q)')
         if arr == 'q':    
             self.quit = True
         self.key = arr
@@ -145,7 +151,6 @@ class Game:
                             new_matrix[col][i] += next1
                             del(new_matrix[col][i+1])
                             new_matrix[col].append(0)
-            log(new_matrix)
             
             for col in range(4):
                 for row in range(4):
