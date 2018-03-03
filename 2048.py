@@ -168,6 +168,7 @@ class Game:
         elif key == 'd':
             self.move([0, 1])
             self.add([0, 1])
+        self.win()
     
     def generate(self, arr):
         points = []
@@ -178,6 +179,11 @@ class Game:
         row_i, col_i = random.choice(points)
         self.container[row_i][col_i] = 2
 
+    def win(self):
+        for row in range(4):
+            for col in range(4):
+                if self.container[row][col] == 2048:
+                    self.quit = True
 game = Game()
 
 while True and not game.quit:
